@@ -1,0 +1,70 @@
+[
+    {
+        "type": "function",
+        "name": "allowance",
+        "inputs": [
+          {
+            "name": "owner",
+            "ty": "core::felt"
+          },
+          {
+            "name": "spender",
+            "ty": "core::felt"
+          }
+        ],
+        "output_ty": "core::integer::u256",
+        "state_mutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "transfer",
+        "inputs": [
+          {
+            "name": "recipient",
+            "ty": "core::felt"
+          },
+          {
+            "name": "amount",
+            "ty": "core::integer::u256"
+          }
+        ],
+        "output_ty": "()",
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "transfer_from",
+        "inputs": [
+          {
+            "name": "sender",
+            "ty": "core::felt"
+          },
+          {
+            "name": "recipient",
+            "ty": "core::felt"
+          },
+          {
+            "name": "amount",
+            "ty": "core::integer::u256"
+          }
+        ],
+        "output_ty": "()",
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "approve",
+        "inputs": [
+          {
+            "name": "spender",
+            "ty": "core::felt"
+          },
+          {
+            "name": "amount",
+            "ty": "core::integer::u256"
+          }
+        ],
+        "output_ty": "()",
+        "state_mutability": "external"
+      }
+]
