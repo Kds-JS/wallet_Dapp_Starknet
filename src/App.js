@@ -38,7 +38,6 @@ function App() {
     await windowStarknet?.enable({ starknetVersion: "v4" })
     
     setAccount(windowStarknet.account) // Set our account variable to windowStarknet.account (address, provider and the signer)
-    console.log(windowStarknet.account)
     setAddress(windowStarknet.selectedAddress) // Set our address variable to windowStarknet.selectedAddress
     setConnected(true) // isConnected = true, the page will changed according to the boolean
     return windowStarknet
@@ -50,10 +49,9 @@ function App() {
     if(address !== undefined) {
       const contractConnect = new Contract(WalletAbi, WalletContractAddress, account); // We set our Contract passing our Json, ContractAddress
       //                                                          and our Account (address, provider and the signer) 
-      // console.log(contractConnect);
+ 
       const newBalance = await contractConnect.get_balance(address); // Call the get_balance function of Wallet contract 
-      setBalance(Number(newBalance));
-      console.log(Number(newBalance))
+      setBalance(parseInt(newBalance));
     }
   }
 
@@ -64,13 +62,13 @@ function App() {
 
   async function deposit() {
     const contractConnect = new Contract(WalletAbi, WalletContractAddress, account);
-    const amountInWei = Number(parseEther(amountSend));
+    const amountInWei = parseInt(parseEther(amountSend));
     await contractConnect.deposit(EthereumContractAddress, amountInWei);
   }
 
   async function withdraw() {
     const contractConnect = new Contract(WalletAbi, WalletContractAddress, account);
-    const amountInWei = Number(parseEther(amountWithdraw));
+    const amountInWei = parseInt(parseEther(amountWithdraw));
     await contractConnect.withdraw(EthereumContractAddress, amountInWei);
   }
 
