@@ -1,6 +1,8 @@
 #[abi]
 trait IETHContract {
     #[external]
+    fn transfer(recipient: starknet::ContractAddress, amount: u256);
+    #[external]
     fn transferFrom(
         sender: starknet::ContractAddress, recipient: starknet::ContractAddress, amount: u256
     );
@@ -55,9 +57,7 @@ mod Wallet {
         assert(caller_balance >= amount, 'Not enought funds');
         let caller_new_balance = caller_balance - amount;
         wallets::write(caller, caller_new_balance);
-        IETHContractDispatcher {
-            contract_address: eth_contract_address
-        }.transferFrom(contract_address(), caller, amount);
+        IETHContractDispatcher { contract_address: eth_contract_address }.transfer(caller, amount);
         Withdraw(caller, amount);
     }
 }
