@@ -112,12 +112,12 @@ function App() {
             <div className="wallet__flex">
               <div className="walletG">
                 <h3>Deposit Ether</h3>
-                <input type="text" placeholder="Montant en Ethers" onChange={changeAmountSend} />
+                <input type="text" placeholder="Amount in Ethers" onChange={changeAmountSend} />
                 <button onClick={deposit}>Deposit</button>
               </div>
               <div className="walletD">
                 <h3>Withdraw Ether</h3>
-                <input type="text" placeholder="Montant en Ethers" onChange={changeAmountWithdraw} />
+                <input type="text" placeholder="Amount in Ethers" onChange={changeAmountWithdraw} />
                 <button onClick={withdraw}>Withdraw</button>
               </div>
             </div>
