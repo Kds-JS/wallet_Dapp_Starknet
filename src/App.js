@@ -55,17 +55,35 @@ function App() {
     }
   }
 
-  // async function approve (amount) {
-  //   const ethContract = new Contract(EtherAbi, EthereumContractAddress, account);
-  //   return ethContract.approve(WalletContractAddress, amount);
-  // }
+  // Returns the remaining number of tokens 
+  // that Wallet smart contract will be allowed to spend on behalf of user through transferFrom. This is zero by default.
+  async function userAllowance () {
+    const ethContract = new Contract(EtherAbi, EthereumContractAddress, account);
+    const allowance = await ethContract.allowance(address, WalletContractAddress);
+    return parseInt(allowance);
+  }
 
+  // Sets amount as the allowance of Wallet smart contract over the user’s tokens.
+  async function approve (amount) {
+    const ethContract = new Contract(EtherAbi, EthereumContractAddress, account);
+    return ethContract.approve(WalletContractAddress, amount);
+  }
+
+  // deposit ethers on Wallet smart contract
   async function deposit() {
     const contractConnect = new Contract(WalletAbi, WalletContractAddress, account);
     const amountInWei = parseInt(parseEther(amountSend));
+
+    const allowance = await userAllowance();
+
+    if(allowance < amountInWei) {
+      await approve(parseEther("10"));
+    }
+      
     await contractConnect.deposit(EthereumContractAddress, amountInWei);
   }
 
+  // withdraw ethers on Wallet smart contract
   async function withdraw() {
     const contractConnect = new Contract(WalletAbi, WalletContractAddress, account);
     const amountInWei = parseInt(parseEther(amountWithdraw));
@@ -93,14 +111,14 @@ function App() {
             
             <div className="wallet__flex">
               <div className="walletG">
-                <h3>Déposer de l'ether</h3>
+                <h3>Deposit Ether</h3>
                 <input type="text" placeholder="Montant en Ethers" onChange={changeAmountSend} />
-                <button onClick={deposit}>Envoyer</button>
+                <button onClick={deposit}>Deposit</button>
               </div>
               <div className="walletD">
-                <h3>Retirer de l'ether</h3>
+                <h3>Withdraw Ether</h3>
                 <input type="text" placeholder="Montant en Ethers" onChange={changeAmountWithdraw} />
-                <button onClick={withdraw}>Retirer</button>
+                <button onClick={withdraw}>Withdraw</button>
               </div>
             </div>
           </>
